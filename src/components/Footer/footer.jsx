@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <div className="bg-black"> 
+    <div className="bg-black relative z-10"> 
       <footer className="px-4 sm:px-8 lg:px-20  border-gray-200 shadow-md text-gray py-4">
         <div className="container mx-auto flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0">
           {/* Left Content */}

@@ -1,5 +1,6 @@
 "use client";
 
+import Footer from "@/components/Footer/footer";
 import { Button } from "@/components/ui/button";
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 import Link from "next/link";
@@ -13,6 +14,7 @@ export default function HomePage() {
     { text: "Work", className: "text-pink-400 dark:text-pink-400" },
   ];
   return (
+    <>
     <div className="relative min-h-screen w-full overflow-hidden">
       {/* Background Image */}
       <div
@@ -53,6 +55,8 @@ export default function HomePage() {
           </div>
         </div>
       </div>
-    </div>
+    </div> 
+      <Footer />
+    </>
   );
 }

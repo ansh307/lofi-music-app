@@ -1,0 +1,52 @@
+"use client";
+import { useEffect, useState } from "react";
+import { useMusicPlayer } from "../context/MusicPlayerContext";
+
+const TypingTitle = ({ speed = 150 }) => {
+  const { currentSongIndex, songs } = useMusicPlayer();
+  const currentSong = songs[currentSongIndex];
+  const text = currentSong.title;
+
+  const [displayedText, setDisplayedText] = useState("");
+  const [index, setIndex] = useState(0);
+  const [showCursor, setShowCursor] = useState(true);
+
+  // Reset typing animation on song change
+  useEffect(() => {
+    setDisplayedText("");
+    setIndex(0);
+  }, [text]);
+
+  // Typing effect
+  useEffect(() => {
+    if (index < text.length) {
+      const timeout = setTimeout(() => {
+        setDisplayedText((prev) => prev + text[index]);
+        setIndex((prev) => prev + 1);
+      }, speed);
+      return () => clearTimeout(timeout);
+    }
+  }, [index, text, speed]);
+
+  // Blinking cursor
+  useEffect(() => {
+    const blink = setInterval(() => {
+      setShowCursor((prev) => !prev);
+    }, 750);
+    return () => clearInterval(blink);
+  }, []);
+
+  return (
+    <span>
+      {displayedText}
+      {index === text.length && <span className="text-indigo-200">...</span>}
+      <span
+        className={`bg-indigo-200 w-[8px] h-5 inline-block ml-1 ${
+          showCursor ? "opacity-100" : "opacity-0"
+        } transition-opacity duration-200`}
+      />
+    </span>
+  );
+};
+
+export default TypingTitle;

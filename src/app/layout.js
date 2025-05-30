@@ -1,7 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { Zen_Maru_Gothic } from "next/font/google";
 import "./globals.css";
-import Footer from "@/components/Footer/footer";
+import { MusicPlayerProvider } from "@/components/context/MusicPlayerContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,8 +28,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${zenMaru.variable}`}>
-        {children}
-        <Footer />
+        <MusicPlayerProvider>
+          {children}
+        </MusicPlayerProvider>
+  
       </body>
     </html>
   );
