@@ -87,8 +87,8 @@ const NewMusicPlayerComponent = () => {
   ]);
 
   return (
-    <div className="absolute bottom-0 left-0 w-full z-0 py-5 px-6 flex flex-col items-center mx-12">
-      <div className="w-full text-start mb-4 px-0">
+    <div className="absolute bottom-12 md:bottom-0 left-0 w-full z-0 py-5 px-0 md:px-6 flex flex-col mx-12">
+      <div className="w-[90%] max-w-sm sm:max-w-md md:w-full text-start mb-4 px-0 ml-0">
         <h2 className="text-2xl font-semibold text-indigo-200 ">
           <TypingTitle />
         </h2>

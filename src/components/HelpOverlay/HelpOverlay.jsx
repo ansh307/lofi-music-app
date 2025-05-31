@@ -9,20 +9,20 @@ const HelpOverlay = () => {
 
   return (
     <>
-      {/* Question mark icon top-right */}
+      {/* Question mark icon top-right */} 
       <div className="fixed top-12 right-12 z-50">
         <button
           onClick={() => setShowHelp(!showHelp)}
           className="text-indigo-300 hover:text-indigo-100 text-2xl transition"
           title="How to use"
         >
-          <FiHelpCircle />
+          <FiHelpCircle className="drop-shadow-[0_0_6px_rgba(129,140,248,0.8)]" />
         </button>
       </div>
 
       {/* Help overlay */}
       {showHelp && (
-        <div className="fixed top-10 right-5 w-64 bg-black/5 bg-opacity-80 text-indigo-200 md:py-2 font-mono text-sm z-[40] glow-text">
+        <div className="fixed top-10 right-5 w-64 bg-opacity-80 text-indigo-200 py-2 font-mono text-sm z-[40] glow-text">
           <div className="w-full md:w-[200px] text-right space-y-2">
             <p className="flex items-center gap-2">
               <FaArrowLeft /> <FaArrowRight /> <span>change station</span>

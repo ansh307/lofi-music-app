@@ -14,7 +14,7 @@ const SocialOverlay = () => {
         className="text-indigo-300 hover:text-indigo-100 text-2xl transition"
         title="Socials"
       >
-        <FiShare2 />
+        <FiShare2 className="drop-shadow-[0_0_6px_rgba(129,140,248,0.8)]"/>
       </button>
     </div>
   );

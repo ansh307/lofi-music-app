@@ -29,9 +29,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${zenMaru.variable}`}>
-        <MusicPlayerProvider>
-          <GifProvider>{children}</GifProvider>
-        </MusicPlayerProvider>
+          <GifProvider>
+            <MusicPlayerProvider>
+              {children}
+            </MusicPlayerProvider>
+          </GifProvider>
       </body>
     </html>
   );

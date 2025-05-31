@@ -1,4 +1,3 @@
-// context/MusicPlayerContext.js
 "use client";
 
 import React, {
@@ -9,6 +8,7 @@ import React, {
   useRef,
 } from "react";
 import { songs } from "@/data/SongList";
+import { useGif } from "./GifContext";
 
 const MusicPlayerContext = createContext();
 
@@ -23,6 +23,7 @@ export const MusicPlayerProvider = ({ children }) => {
   const [duration, setDuration] = useState(0); // Add duration state here
 
   const audioRef = useRef(null);
+const { changeGif } = useGif();
 
   useEffect(() => {
     if (audioRef.current) {
@@ -31,6 +32,21 @@ export const MusicPlayerProvider = ({ children }) => {
       // audioRef.current.currentTime = currentTime;
     }
   }, [volume, isMuted]);
+
+  useEffect(() => {
+    if (typeof changeGif === "function") {
+      changeGif(); // whenever song changes
+    }
+  }, [currentSongIndex]);
+
+  useEffect(() => {
+    if (isPlaying && audioRef.current) {
+      audioRef.current.load(); // reload new audio
+      audioRef.current
+        .play()
+        .catch((err) => console.warn("Playback error:", err));
+    }
+  }, [currentSongIndex]);
 
   const getRandomSongIndex = (excludeIndex) => {
     let randomIndex = Math.floor(Math.random() * songs.length);
@@ -64,17 +80,12 @@ export const MusicPlayerProvider = ({ children }) => {
     const randomIndex = getRandomSongIndex(currentSongIndex);
     setCurrentSongIndex(randomIndex);
     setIsPlaying(true);
-    // audioRef.current.pause(); // will autoplay due to `autoPlay`
-    // Wait for the new song to load before playing
-    playAudio();
   };
 
   const handlePrev = () => {
     const randomIndex = getRandomSongIndex(currentSongIndex);
     setCurrentSongIndex(randomIndex);
     setIsPlaying(true);
-    // audioRef.current.pause();
-    playAudio();
   };
 
   const handleVolumeChange = (e) => {

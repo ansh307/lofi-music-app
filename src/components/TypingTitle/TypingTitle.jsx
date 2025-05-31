@@ -45,9 +45,9 @@ const TypingTitle = ({ speed = 150 }) => {
       <span
         className={`bg-indigo-200 w-[8px] h-5 inline-block ml-1 ${
           showCursor ? "opacity-100" : "opacity-0"
-        } transition-opacity duration-200`}
+        } transition-opacity duration-200 shadow-[0_0_6px_rgba(129,140,248,0.8)]`}
       />
-    </span>
+    </span> 
   ) : (
     <span className="text-indigo-300 glow-text flex items-center">
       Paused... Click space to play
