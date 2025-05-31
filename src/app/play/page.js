@@ -2,6 +2,8 @@
 
 import NewMusicPlayerComponent from "@/components/MusicComponents/NewMusicPlayerComponent";
 import "@/app/play/VHS-style-scanline-effect.css";
+import HelpOverlay from "@/components/HelpOverlay/HelpOverlay";
+import SocialOverlay from "@/components/SocialOverlay/SocialOverlay";
 
 export default function PlayPage() {
   return (
@@ -17,7 +19,8 @@ export default function PlayPage() {
       {/* Horizontal Lines Overlay */}
       <div className="absolute inset-0 horizontal-lines-overlay z-10" />
 
-
+      <HelpOverlay />
+      <SocialOverlay />
 
       {/* Foreground Content */}
       <div className="w-full ">

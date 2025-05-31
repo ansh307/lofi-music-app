@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useMusicPlayer } from "../context/MusicPlayerContext";
 
 const TypingTitle = ({ speed = 150 }) => {
-  const { currentSongIndex, songs } = useMusicPlayer();
+  const { currentSongIndex, songs, isPlaying } = useMusicPlayer();
   const currentSong = songs[currentSongIndex];
   const text = currentSong.title;
 
@@ -36,14 +36,25 @@ const TypingTitle = ({ speed = 150 }) => {
     return () => clearInterval(blink);
   }, []);
 
-  return (
-    <span>
+  return isPlaying ? (
+    <span className="glow-text">
       {displayedText}
-      {index === text.length && <span className="text-indigo-200">...</span>}
+      {index === currentSong.title.length && (
+        <span className="text-indigo-200">...</span>
+      )}
       <span
         className={`bg-indigo-200 w-[8px] h-5 inline-block ml-1 ${
           showCursor ? "opacity-100" : "opacity-0"
         } transition-opacity duration-200`}
+      />
+    </span>
+  ) : (
+    <span className="text-indigo-300 glow-text flex items-center">
+      Paused... Click space to play
+      <span
+        className={`bg-indigo-200 w-[8px] h-5 inline-block ml-1  ${
+          showCursor ? "opacity-100" : "opacity-0"
+        } transition-opacity duration-200 `}
       />
     </span>
   );

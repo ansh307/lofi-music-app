@@ -4,7 +4,7 @@ import { FaPlay, FaPause, FaVolumeUp, FaVolumeMute } from "react-icons/fa";
 import { IoPlaySkipForward, IoPlaySkipBack } from "react-icons/io5";
 import { MdOutlineFileDownload } from "react-icons/md";
 import { useMusicPlayer } from "@/components/context/MusicPlayerContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import TypingTitle from "../TypingTitle/TypingTitle";
 
@@ -30,10 +30,55 @@ const NewMusicPlayerComponent = () => {
 
   const currentSong = songs[currentSongIndex];
 
+   // Keyboard controls
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      switch (e.key) {
+        case "ArrowLeft":
+          handlePrev();
+          break;
+        case "ArrowRight":
+          handleNext();
+          break;
+        case "ArrowUp":
+          if (!isMuted) {
+            const newVolume = Math.min(volume + 0.1, 1);
+            handleVolumeChange({ target: { value: newVolume } });
+          }
+          break;
+        case "ArrowDown":
+          if (!isMuted) {
+            const newVolume = Math.max(volume - 0.1, 0);
+            handleVolumeChange({ target: { value: newVolume } });
+          }
+          break;
+        case " ":
+          e.preventDefault(); // prevent space from scrolling
+          togglePlayPause();
+          break;
+        case "m":
+        case "M":
+          toggleMute();
+          break;
+        case "g":
+        case "G":
+          if (typeof changeGif === "function") {
+            changeGif(); // optional
+          }
+          break;
+        default:
+          break;
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [volume, isMuted, togglePlayPause, handleNext, handlePrev, handleVolumeChange, toggleMute]);
+
   return (
     <div className="absolute bottom-0 left-0 w-full z-0 py-5 px-6 flex flex-col items-center mx-12">
       <div className="w-full text-start mb-4 px-0">
-        <h2 className="text-2xl font-semibold text-indigo-200 max-w-64">
+        <h2 className="text-2xl font-semibold text-indigo-200 ">
           <TypingTitle />
         </h2>
       </div>
@@ -72,7 +117,7 @@ const NewMusicPlayerComponent = () => {
             onClick={toggleMute}
             className="p-2 text-indigo-200 hover:text-indigo-100 hover:scale-110 transition-transform duration-300"
           >
-            {isMuted ? <FaVolumeMute /> : <FaVolumeUp />}
+            {isMuted || volume === 0 ? <FaVolumeMute /> : <FaVolumeUp />}
           </button>
           <input
             type="range"

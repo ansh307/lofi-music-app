@@ -140,3 +140,11 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.glow-text {
+  text-shadow: 0 0 6px rgba(129, 140, 248, 0.8); /* Tailwind's indigo-400 */
+}
+
+.glow-yellow {
+  text-shadow: 0 0 6px rgba(250, 204, 21, 0.8);
+}
