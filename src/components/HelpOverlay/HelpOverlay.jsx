@@ -1,14 +1,8 @@
 import { useState } from "react";
 import {
   FiHelpCircle,
-  FiArrowLeft,
-  FiArrowRight,
-  FiArrowUp,
-  FiArrowDown,
 } from "react-icons/fi";
-import { FaPlay, FaPause, FaVolumeMute, FaArrowLeft, FaArrowRight, FaArrowUp, FaArrowDown } from "react-icons/fa";
-import { GiCardRandom } from "react-icons/gi"; // gif icon
-import { MdSpaceBar } from "react-icons/md"; // spacebar icon
+import { FaArrowLeft, FaArrowRight, FaArrowUp, FaArrowDown } from "react-icons/fa";// spacebar icon
 
 const HelpOverlay = () => {
   const [showHelp, setShowHelp] = useState(false);
@@ -28,7 +22,7 @@ const HelpOverlay = () => {
 
       {/* Help overlay */}
       {showHelp && (
-        <div className="fixed inset-0 bg-black/5 bg-opacity-80 text-indigo-200 flex flex-col items-end p-8 md:px-16 md:py-12 font-mono text-sm mx-10 z-40 glow-text">
+        <div className="fixed top-10 right-5 w-64 bg-black/5 bg-opacity-80 text-indigo-200 md:py-2 font-mono text-sm z-[40] glow-text">
           <div className="w-full md:w-[200px] text-right space-y-2">
             <p className="flex items-center gap-2">
               <FaArrowLeft /> <FaArrowRight /> <span>change station</span>

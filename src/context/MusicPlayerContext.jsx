@@ -17,13 +17,12 @@ export const useMusicPlayer = () => useContext(MusicPlayerContext);
 export const MusicPlayerProvider = ({ children }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentSongIndex, setCurrentSongIndex] = useState(9);
-  const [volume, setVolume] = useState(0.5);
+  const [volume, setVolume] = useState(0.2);
   const [isMuted, setIsMuted] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0); // Add duration state here
 
   const audioRef = useRef(null);
-
 
   useEffect(() => {
     if (audioRef.current) {
@@ -34,14 +33,13 @@ export const MusicPlayerProvider = ({ children }) => {
   }, [volume, isMuted]);
 
   const getRandomSongIndex = (excludeIndex) => {
-  let randomIndex = Math.floor(Math.random() * songs.length);
-  // Prevent picking the same song
-  while (randomIndex === excludeIndex && songs.length > 1) {
-    randomIndex = Math.floor(Math.random() * songs.length);
-  }
-  return randomIndex;
-};
-
+    let randomIndex = Math.floor(Math.random() * songs.length);
+    // Prevent picking the same song
+    while (randomIndex === excludeIndex && songs.length > 1) {
+      randomIndex = Math.floor(Math.random() * songs.length);
+    }
+    return randomIndex;
+  };
 
   const togglePlayPause = () => {
     if (isPlaying) {
@@ -52,21 +50,32 @@ export const MusicPlayerProvider = ({ children }) => {
     setIsPlaying(!isPlaying);
   };
 
-const handleNext = () => {
-  const randomIndex = getRandomSongIndex(currentSongIndex);
-  setCurrentSongIndex(randomIndex);
-  setIsPlaying(true);
-  audioRef.current.pause(); // will autoplay due to `autoPlay`
-};
+  const playAudio = () => {
+    setTimeout(() => {
+      if (audioRef.current) {
+        audioRef.current
+          .play()
+          .catch((err) => console.warn("Playback error:", err));
+      }
+    }, 100);
+  };
 
+  const handleNext = () => {
+    const randomIndex = getRandomSongIndex(currentSongIndex);
+    setCurrentSongIndex(randomIndex);
+    setIsPlaying(true);
+    // audioRef.current.pause(); // will autoplay due to `autoPlay`
+    // Wait for the new song to load before playing
+    playAudio();
+  };
 
-const handlePrev = () => {
-  const randomIndex = getRandomSongIndex(currentSongIndex);
-  setCurrentSongIndex(randomIndex);
-  setIsPlaying(true);
-  audioRef.current.pause();
-};
-
+  const handlePrev = () => {
+    const randomIndex = getRandomSongIndex(currentSongIndex);
+    setCurrentSongIndex(randomIndex);
+    setIsPlaying(true);
+    // audioRef.current.pause();
+    playAudio();
+  };
 
   const handleVolumeChange = (e) => {
     const newVolume = parseFloat(e.target.value);
@@ -114,7 +123,7 @@ const handlePrev = () => {
     >
       {children}
       <audio
-        autoPlay
+        // autoPlay
         ref={audioRef}
         src={songs[currentSongIndex].src}
         onEnded={handleNext}
