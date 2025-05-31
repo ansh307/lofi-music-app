@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useMusicPlayer } from "../context/MusicPlayerContext";
+import { useMusicPlayer } from "../../context/MusicPlayerContext";
 
 const TypingTitle = ({ speed = 150 }) => {
   const { currentSongIndex, songs, isPlaying } = useMusicPlayer();

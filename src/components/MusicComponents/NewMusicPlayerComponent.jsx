@@ -3,10 +3,11 @@
 import { FaPlay, FaPause, FaVolumeUp, FaVolumeMute } from "react-icons/fa";
 import { IoPlaySkipForward, IoPlaySkipBack } from "react-icons/io5";
 import { MdOutlineFileDownload } from "react-icons/md";
-import { useMusicPlayer } from "@/components/context/MusicPlayerContext";
+import { useMusicPlayer } from "@/context/MusicPlayerContext";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import TypingTitle from "../TypingTitle/TypingTitle";
+import { useGif } from "../../context/GifContext";
 
 const NewMusicPlayerComponent = () => {
   const {
@@ -28,9 +29,11 @@ const NewMusicPlayerComponent = () => {
     setDuration,
   } = useMusicPlayer();
 
+  const { changeGif } = useGif();
+
   const currentSong = songs[currentSongIndex];
 
-   // Keyboard controls
+  // Keyboard controls
   useEffect(() => {
     const handleKeyDown = (e) => {
       switch (e.key) {
@@ -73,7 +76,15 @@ const NewMusicPlayerComponent = () => {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [volume, isMuted, togglePlayPause, handleNext, handlePrev, handleVolumeChange, toggleMute]);
+  }, [
+    volume,
+    isMuted,
+    togglePlayPause,
+    handleNext,
+    handlePrev,
+    handleVolumeChange,
+    toggleMute,
+  ]);
 
   return (
     <div className="absolute bottom-0 left-0 w-full z-0 py-5 px-6 flex flex-col items-center mx-12">

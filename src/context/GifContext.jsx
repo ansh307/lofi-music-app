@@ -1,0 +1,50 @@
+// context/GifContext.js (or inside MusicPlayerContext if preferred)
+"use client"
+
+import { createContext, useContext, useState } from "react";
+// import {gifList} from "@/data/GifList";
+
+const GifContext = createContext();
+
+export const gifList = [
+  "https://lofi-music-app-55333.s3.ap-south-1.amazonaws.com/media/bg_1.gif",
+  "https://lofi-music-app-55333.s3.ap-south-1.amazonaws.com/media/bg_2.jpg",
+  "https://lofi-music-app-55333.s3.ap-south-1.amazonaws.com/media/bg_3.gif",
+  "https://lofi-music-app-55333.s3.ap-south-1.amazonaws.com/media/bg_4.jpg",
+  "https://lofi-music-app-55333.s3.ap-south-1.amazonaws.com/media/bg_5.png",
+  "https://lofi-music-app-55333.s3.ap-south-1.amazonaws.com/media/bg_6.gif",
+  "https://lofi-music-app-55333.s3.ap-south-1.amazonaws.com/media/bg_7.jpg",
+  "https://lofi-music-app-55333.s3.ap-south-1.amazonaws.com/media/bg_8.png",
+  "https://lofi-music-app-55333.s3.ap-south-1.amazonaws.com/media/bg_9.gif",
+  "https://lofi-music-app-55333.s3.ap-south-1.amazonaws.com/media/bg_10.jpg",
+  "https://lofi-music-app-55333.s3.ap-south-1.amazonaws.com/media/bg_11.gif",
+  "https://lofi-music-app-55333.s3.ap-south-1.amazonaws.com/media/bg_12.png",
+  "https://lofi-music-app-55333.s3.ap-south-1.amazonaws.com/media/bg_13.jpg",
+  "https://lofi-music-app-55333.s3.ap-south-1.amazonaws.com/media/bg_14.gif",
+  "https://lofi-music-app-55333.s3.ap-south-1.amazonaws.com/media/bg_15.jpg",
+  "https://lofi-music-app-55333.s3.ap-south-1.amazonaws.com/media/bg_16.jpg",
+  "https://lofi-music-app-55333.s3.ap-south-1.amazonaws.com/media/bg_17.jpg",
+  "https://lofi-music-app-55333.s3.ap-south-1.amazonaws.com/media/bg_18.jpg",
+  "https://lofi-music-app-55333.s3.ap-south-1.amazonaws.com/media/bg_19.jpg",
+  "https://lofi-music-app-55333.s3.ap-south-1.amazonaws.com/media/bg_20.jpg",
+  "https://lofi-music-app-55333.s3.ap-south-1.amazonaws.com/media/bg_21.jpg",
+  // Add more GIFs
+];
+
+
+export const useGif = () => useContext(GifContext);
+
+export const GifProvider = ({ children }) => {
+  const [currentGif, setCurrentGif] = useState(gifList[0]);
+
+  const changeGif = () => {
+    const randomGif = gifList[Math.floor(Math.random() * gifList.length)];
+    setCurrentGif(randomGif);
+  };
+
+  return (
+    <GifContext.Provider value={{ currentGif, changeGif }}>
+      {children}
+    </GifContext.Provider>
+  );
+};

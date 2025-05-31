@@ -1,7 +1,8 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { Zen_Maru_Gothic } from "next/font/google";
 import "./globals.css";
-import { MusicPlayerProvider } from "@/components/context/MusicPlayerContext";
+import { MusicPlayerProvider } from "@/context/MusicPlayerContext";
+import { GifProvider } from "@/context/GifContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,7 +21,7 @@ const zenMaru = Zen_Maru_Gothic({
 });
 
 export const metadata = {
-  title: "Lofi Lounge",
+  title: "LofiDa",
   description: "Relax and focus with lofi vibes",
 };
 
@@ -29,9 +30,8 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${zenMaru.variable}`}>
         <MusicPlayerProvider>
-          {children}
+          <GifProvider>{children}</GifProvider>
         </MusicPlayerProvider>
-  
       </body>
     </html>
   );
