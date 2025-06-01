@@ -49,6 +49,9 @@ const HelpOverlay = () => {
             <p className="flex items-center gap-2">
               M: <span>mute</span>
             </p>
+             <p className="flex items-center gap-2">
+              T: <span>Changing theme</span>
+            </p>
 
             <div className={`mt-4 flex ${themeClass.text}`}>Creators:</div>
             <p className="flex font-medium">
