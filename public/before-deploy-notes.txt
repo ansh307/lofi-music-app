@@ -1,0 +1,5 @@
+update :
+    robots.txt
+    sitemap.xml
+    SEO/index.js
+    next-sitemap.config.js

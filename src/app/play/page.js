@@ -13,6 +13,7 @@ import { MdSync } from "react-icons/md";
 import SettingsOverlay from "@/components/SettingsOverlay/SettingsOverlay";
 import { useTheme } from "@/context/ThemeContext";
 import themes from "@/lib/themes";
+import Seo from "@/components/Seo";
 
 export default function PlayPage() {
   const { currentGif, changeGif } = useGif();
@@ -23,6 +24,8 @@ export default function PlayPage() {
   const { theme, changeTheme } = useTheme();
 
   const themeClass = themes[theme] || themes["indigo"]; // fallback
+
+   <Seo title="Lofida Play" />
 
   return (
     <div className="relative overflow-hidden min-h-screen bg-gradient-to-b from-zinc-900 to-black text-white flex flex-col items-center justify-center px-4 py-8">

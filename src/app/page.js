@@ -1,11 +1,14 @@
 "use client";
 
 import Footer from "@/components/Footer/footer";
-import { Button } from "@/components/ui/button";
+import Seo from "@/components/Seo";
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 import { useGif } from "@/context/GifContext";
-import Link from "next/link";
 import { useEffect } from "react";
+
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import Loader from "@/components/ui/Loader";
 
 export default function HomePage() {
   const words = [
@@ -16,30 +19,40 @@ export default function HomePage() {
     { text: "Work", className: "text-pink-400 dark:text-pink-400" },
   ];
 
-   const { changeGif } = useGif();
-  
-    // Keyboard controls
-    useEffect(() => {
-      const handleKeyDown = (e) => {
-        switch (e.key) {
-          case "g":
-          case "G":
-            if (typeof changeGif === "function") {
-              changeGif(); // optional
-            }
-            break;
-          default:
-            break;
-        }
-      };
-  
-      window.addEventListener("keydown", handleKeyDown);
-      return () => window.removeEventListener("keydown", handleKeyDown);
-    }, [
-      changeGif
-    ]);
+  const { changeGif } = useGif();
+
+  // Keyboard controls
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      switch (e.key) {
+        case "g":
+        case "G":
+          if (typeof changeGif === "function") {
+            changeGif(); // optional
+          }
+          break;
+        default:
+          break;
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [changeGif]);
 
   const { currentGif } = useGif();
+
+  <Seo title="LofiDa" />;// fallback
+
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
+  const handleClick = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      router.push("/play");
+    }, 800); // Delay just for effect (optional)
+  };
   return (
     <>
       <div className="relative min-h-screen w-full overflow-hidden">
@@ -72,13 +85,22 @@ export default function HomePage() {
             </p>
 
             <div className="pt-5">
-              <Link
-                href={"/play"}
-                className=" py-4 px-8 rounded-full text-xl bg-primary shadow-xs text-indigo-200 hover:text-black hover:bg-indigo-200 font-medium transition-all duration-300"
-                size={"lg"}
+              <button
+                onClick={handleClick}
+                disabled={isLoading}
+                className={`inline-flex items-center justify-center gap-2 py-4 px-8 rounded-full border text-indigo-200 hover:text-indigo-100 shadow-[0_0_6px_rgba(129,140,248,0.8)] transition-all duration-300 ${
+                  isLoading ? "opacity-60 cursor-not-allowed" : ""
+                }`}
               >
-                Music
-              </Link>
+                {isLoading ? (
+                  <>
+                    <Loader size="sm" />
+                    <span>Loading...</span>
+                  </>
+                ) : (
+                  "Music"
+                )}
+              </button>
             </div>
           </div>
         </div>
