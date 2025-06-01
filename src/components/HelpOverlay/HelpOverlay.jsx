@@ -14,7 +14,7 @@ const HelpOverlay = () => {
   const { theme } = useTheme();
 
   const themeClass = themes[theme] || themes["indigo"]; // fallback
-
+  // from workspace
   return (
     <>
       {/* Question mark icon top-right */}
