@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Lofida 🎵
 
-## Getting Started
+Welcome to **Lofida** — your cozy corner of lo-fi vibes. Relax, listen, and flow into deep focus with the best aesthetic lofi sounds and visuals.
 
-First, run the development server:
+## About
+
+Lofida is a beautiful and immersive lofi music web app designed to help you block distractions and dive into a calm, creative zone. It features:
+
+- Curated lo-fi music playlists  
+- Changing background GIFs to set the mood  
+- Responsive and intuitive UI  
+- Theme customization and smooth transitions  
+- Easy navigation to play music and explore vibes  
+
+Built with [Next.js](https://nextjs.org/), React, and Tailwind CSS.
+
+## Features
+
+- Dynamic background GIFs that change with the music  
+- Multiple themes and customizable styles  
+- Keyboard shortcuts for quick controls  
+- Responsive design for desktop and mobile  
+- SEO optimized with meta tags and social sharing support  
+- Accessible and inclusive design  
+
+
+## Installation & Development
+
+To run Lofida locally:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+    git clone https://github.com/ansh307/lofi-music-app.git
+    cd lofi-music-app
+    npm install
+    npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## How to Contribute
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
-## Learn More
+## License
 
-To learn more about Next.js, take a look at the following resources:
+This project is licensed under the [MIT License](LICENSE).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contact
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Created by **Ansh Soni** — [anshsoni55333@gmail.com](mailto:anshsoni55333@gmail.com)
+Follow me on Twitter: [@Anshjz](https://twitter.com/Anshjz)
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Enjoy the vibes and thanks for stopping by! 🎧✨
