@@ -10,12 +10,19 @@ import { useState } from "react";
 import { TbCircleChevronDown } from "react-icons/tb";
 import { useMusicPlayer } from "@/context/MusicPlayerContext";
 import { MdSync } from "react-icons/md";
+import SettingsOverlay from "@/components/SettingsOverlay/SettingsOverlay";
+import { useTheme } from "@/context/ThemeContext";
+import themes from "@/lib/themes";
 
 export default function PlayPage() {
   const { currentGif, changeGif } = useGif();
   const [showControls, setShowControls] = useState(false);
   const { isPlaying, togglePlayPause, handleNext, handlePrev } =
     useMusicPlayer();
+
+  const { theme, changeTheme } = useTheme();
+
+  const themeClass = themes[theme] || themes["indigo"]; // fallback
 
   return (
     <div className="relative overflow-hidden min-h-screen bg-gradient-to-b from-zinc-900 to-black text-white flex flex-col items-center justify-center px-4 py-8">
@@ -39,23 +46,26 @@ export default function PlayPage() {
       <HelpOverlay />
       <SocialOverlay />
 
+      {/* <SettingsOverlay /> */}
+
+
       {/* Mobile Controls Dropdown - Fixed on top right */}
       <div className="md:hidden fixed top-[9rem] right-11 z-30 flex flex-col items-center">
         <button
-          className="text-indigo-300 hover:text-indigo-100 text-2xl transition "
+          className={`${themeClass.icon} ${themeClass.hover} text-2xl transition `}
           title="Toggle controls"
           onClick={() => setShowControls(!showControls)}
         >
           <TbCircleChevronDown
             className={`transition-transform duration-300 ${
               showControls ? "rotate-180" : ""
-            } drop-shadow-[0_0_6px_rgba(129,140,248,0.8)]`}
+            } ${themeClass.dropShadow}`}
             size={30}
           />
         </button>
 
         {showControls && (
-          <div className="mt-3 flex flex-col items-center gap-4 py-3 rounded-xl text-indigo-300">
+          <div className={`mt-3 flex flex-col items-center gap-6 py-3 rounded-xl ${themeClass.icon} `}>
             <button
               onClick={togglePlayPause}
               title={isPlaying ? "Pause" : "Play"}
@@ -63,33 +73,34 @@ export default function PlayPage() {
               {isPlaying ? (
                 <Pause
                   size={24}
-                  className="drop-shadow-[0_0_6px_rgba(129,140,248,0.8)]"
+                  className={`${themeClass.dropShadow}`}
                 />
               ) : (
                 <Play
                   size={24}
-                  className="drop-shadow-[0_0_6px_rgba(129,140,248,0.8)]"
+                  className={`${themeClass.dropShadow}`}
                 />
               )}
             </button>
             <button onClick={handlePrev} title="Prev Song">
               <SkipForward
                 size={24}
-                className="rotate-180 drop-shadow-[0_0_6px_rgba(129,140,248,0.8)]"
+                className={`rotate-180 ${themeClass.dropShadow}`}
               />
             </button>
             <button onClick={handleNext} title="Next Song">
               <SkipForward
                 size={24}
-                className="drop-shadow-[0_0_6px_rgba(129,140,248,0.8)]"
+                className={`${themeClass.dropShadow}`}
               />
             </button>
             <button onClick={changeGif} title="Change Gif">
               <MdSync
                 size={24}
-                className="drop-shadow-[0_0_6px_rgba(129,140,248,0.8)]"
+                className={`${themeClass.dropShadow}`}
               />
             </button>
+            <SettingsOverlay />
           </div>
         )}
       </div>

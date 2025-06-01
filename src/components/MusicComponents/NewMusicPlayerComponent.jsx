@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import TypingTitle from "../TypingTitle/TypingTitle";
 import { useGif } from "../../context/GifContext";
+import { useTheme } from "@/context/ThemeContext";
+import themes from "@/lib/themes";
 
 const NewMusicPlayerComponent = () => {
   const {
@@ -32,6 +34,10 @@ const NewMusicPlayerComponent = () => {
   const { changeGif } = useGif();
 
   const currentSong = songs[currentSongIndex];
+
+  const { theme, changeTheme } = useTheme();
+
+  const themeClass = themes[theme] || themes["indigo"]; // fallback
 
   // Keyboard controls
   useEffect(() => {
@@ -69,6 +75,10 @@ const NewMusicPlayerComponent = () => {
             changeGif(); // optional
           }
           break;
+        case "t":
+        case "T":
+          changeTheme() // optional
+          break;
         default:
           break;
       }
@@ -84,12 +94,13 @@ const NewMusicPlayerComponent = () => {
     handlePrev,
     handleVolumeChange,
     toggleMute,
+    changeTheme
   ]);
 
   return (
     <div className="absolute bottom-12 md:bottom-0 left-0 w-full z-0 py-5 px-0 md:px-6 flex flex-col mx-12">
       <div className="w-[90%] max-w-sm sm:max-w-md md:w-full text-start mb-4 px-0 ml-0">
-        <h2 className="text-2xl font-semibold text-indigo-200 ">
+        <h2 className="text-2xl font-semibold">
           <TypingTitle />
         </h2>
       </div>
@@ -126,7 +137,7 @@ const NewMusicPlayerComponent = () => {
         <div className="flex items-center gap-2 col-span-4">
           <button
             onClick={toggleMute}
-            className="p-2 text-indigo-200 hover:text-indigo-100 hover:scale-110 transition-transform duration-300"
+            className={`p-2 ${themeClass.text} ${themeClass.hover} hover:scale-110 transition-transform duration-300`}
           >
             {isMuted || volume === 0 ? <FaVolumeMute /> : <FaVolumeUp />}
           </button>
@@ -137,7 +148,12 @@ const NewMusicPlayerComponent = () => {
             step="0.01"
             value={isMuted ? 0 : volume}
             onChange={handleVolumeChange}
-            className="flex-1 appearance-none bg-indigo-200 rounded-lg h-[2px] max-w-24 cursor-pointer progress-range-slider"
+            className={`flex-1 appearance-none ${themeClass.bg} rounded-lg h-[2px] max-w-24 cursor-pointer progress-range-slider`}
+            style={{
+              backgroundColor: themeClass.track,
+              "--thumb-color": themeClass.thumb,
+              "--thumb-hover": themeClass.thumbHover,
+            }}
           />
         </div>
 
@@ -145,13 +161,13 @@ const NewMusicPlayerComponent = () => {
         <div className="flex justify-center items-center gap-4 col-span-3">
           <button
             onClick={handlePrev}
-            className="p-2 bg-indigo-200 rounded-full hover:bg-indigo-100"
+            className={`p-2 ${themeClass.bg} rounded-full ${themeClass.hover}`}
           >
             <IoPlaySkipBack className="text-slate-900" />
           </button>
           <button
             onClick={togglePlayPause}
-            className="p-4 bg-indigo-200 rounded-full text-white hover:bg-indigo-100 transition-transform duration-300"
+            className={`p-4 ${themeClass.bg} rounded-full text-white ${themeClass.hover} transition-transform duration-300`}
           >
             {isPlaying ? (
               <FaPause className="text-slate-900" />
@@ -161,7 +177,7 @@ const NewMusicPlayerComponent = () => {
           </button>
           <button
             onClick={handleNext}
-            className="p-2 bg-indigo-200 rounded-full hover:bg-indigo-100"
+            className={`p-2 ${themeClass.bg} rounded-full ${themeClass.hover}`}
           >
             <IoPlaySkipForward className="text-slate-900" />
           </button>
@@ -172,7 +188,7 @@ const NewMusicPlayerComponent = () => {
           <Link
             href={currentSong.src}
             target="_blank"
-            className="p-2 text-indigo-100 hover:text-indigo-200 hover:scale-110 transition-transform duration-300"
+            className={`p-2 ${themeClass.text} ${themeClass.hover} hover:scale-110 transition-transform duration-300`}
           >
             <MdOutlineFileDownload className="h-6 w-6" />
           </Link>

@@ -1,3 +1,5 @@
+import { useTheme } from "@/context/ThemeContext";
+import themes from "@/lib/themes";
 import { FiShare2 } from "react-icons/fi";
 
 const SocialOverlay = () => {
@@ -7,14 +9,19 @@ const SocialOverlay = () => {
     window.open(linktreeUrl, "_blank");
   };
 
+  
+  const { theme } = useTheme();
+
+  const themeClass = themes[theme] || themes["indigo"]; // fallback
+
   return (
     <div className="fixed top-[6rem] right-12 z-50">
       <button
         onClick={handleRedirect}
-        className="text-indigo-300 hover:text-indigo-100 text-2xl transition"
+        className={` ${themeClass.icon} ${themeClass.hover} text-2xl transition`}
         title="Socials"
       >
-        <FiShare2 className="drop-shadow-[0_0_6px_rgba(129,140,248,0.8)]"/>
+        <FiShare2 className={`${themeClass.dropShadow}`}/>
       </button>
     </div>
   );

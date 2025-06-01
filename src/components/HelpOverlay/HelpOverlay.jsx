@@ -1,28 +1,38 @@
 import { useState } from "react";
+import { FiHelpCircle } from "react-icons/fi";
 import {
-  FiHelpCircle,
-} from "react-icons/fi";
-import { FaArrowLeft, FaArrowRight, FaArrowUp, FaArrowDown } from "react-icons/fa";// spacebar icon
-
+  FaArrowLeft,
+  FaArrowRight,
+  FaArrowUp,
+  FaArrowDown,
+} from "react-icons/fa"; // spacebar icon
+import { useTheme } from "@/context/ThemeContext";
+import themes from "@/lib/themes";
 const HelpOverlay = () => {
   const [showHelp, setShowHelp] = useState(false);
 
+  const { theme } = useTheme();
+
+  const themeClass = themes[theme] || themes["indigo"]; // fallback
+
   return (
     <>
-      {/* Question mark icon top-right */} 
+      {/* Question mark icon top-right */}
       <div className="fixed top-12 right-12 z-50">
         <button
           onClick={() => setShowHelp(!showHelp)}
-          className="text-indigo-300 hover:text-indigo-100 text-2xl transition"
+          className={`text-2xl transition ${themeClass.icon} ${themeClass.hover}`}
           title="How to use"
         >
-          <FiHelpCircle className="drop-shadow-[0_0_6px_rgba(129,140,248,0.8)]" />
+          <FiHelpCircle className={`${themeClass.dropShadow}`} />
         </button>
       </div>
 
       {/* Help overlay */}
       {showHelp && (
-        <div className="fixed top-10 right-5 w-64 bg-opacity-80 text-indigo-200 py-2 font-mono text-sm z-[40] glow-text">
+        <div
+          className={`fixed top-10 right-5 w-64 bg-opacity-80 ${themeClass.text} py-2 font-mono text-sm z-[40] ${themeClass.dropShadow}`}
+        >
           <div className="w-full md:w-[200px] text-right space-y-2">
             <p className="flex items-center gap-2">
               <FaArrowLeft /> <FaArrowRight /> <span>change station</span>
@@ -40,10 +50,13 @@ const HelpOverlay = () => {
               M: <span>mute</span>
             </p>
 
-            <div className="mt-4 flex text-indigo-200">Creators:</div>
+            <div className={`mt-4 flex ${themeClass.text}`}>Creators:</div>
             <p className="flex font-medium">
               @
-              <a href="https://twitter.com/Anshjz" className="text-lime-300 hover:underline glow-yellow">
+              <a
+                href="https://twitter.com/Anshjz"
+                className="text-lime-300 hover:underline glow-yellow"
+              >
                 Anshjz
               </a>
               {/* linktr.ee/anshsoni55333 */}

@@ -3,6 +3,7 @@ import { Zen_Maru_Gothic } from "next/font/google";
 import "./globals.css";
 import { MusicPlayerProvider } from "@/context/MusicPlayerContext";
 import { GifProvider } from "@/context/GifContext";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,11 +30,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${zenMaru.variable}`}>
+        <ThemeProvider>
           <GifProvider>
             <MusicPlayerProvider>
-              {children}
+               {children}
             </MusicPlayerProvider>
           </GifProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
