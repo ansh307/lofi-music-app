@@ -19,7 +19,7 @@ const Footer = () => {
               </p>
             </Link>
 
-            <p className="text-sm text-gray-800">
+            <p className="text-sm text-gray-600">
               Created by Ansh
             </p>
           </div>

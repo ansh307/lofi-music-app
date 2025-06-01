@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://lofida.app
+
+# Sitemaps
+Sitemap: https://lofida.app/sitemap.xml
