@@ -18,7 +18,7 @@ const HelpOverlay = () => {
   return (
     <>
       {/* Question mark icon top-right */}
-      <div className="fixed top-12 right-12 z-50">
+      <div className="fixed top-12 right-12 z-40">
         <button
           onClick={() => setShowHelp(!showHelp)}
           className={`text-2xl transition ${themeClass.icon} ${themeClass.hover}`}
@@ -31,7 +31,7 @@ const HelpOverlay = () => {
       {/* Help overlay */}
       {showHelp && (
         <div
-          className={`fixed top-10 right-5 w-64 bg-opacity-80 ${themeClass.text} py-2 font-mono text-sm z-[40] ${themeClass.dropShadow}`}
+          className={`fixed top-10 right-5 w-64 bg-opacity-80 ${themeClass.text} py-2 font-mono text-sm z-[30] ${themeClass.dropShadow}`}
         >
           <div className="w-full md:w-[200px] text-right space-y-2">
             <p className="flex items-center gap-2">

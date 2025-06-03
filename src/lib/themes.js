@@ -9,6 +9,7 @@ const themes = {
     thumbHover: "#4f46e5", // indigo-600
     shadow: "shadow-[0_0_6px_rgba(129,140,248,0.8)]", // indigo-300
     dropShadow: "drop-shadow-[0_0_4px_rgba(129,140,248,0.8)]",
+    border: "border-indigo-300",
   },
   blue: {
     icon: "text-sky-300",
@@ -20,6 +21,7 @@ const themes = {
     thumbHover: "#0284c7", // sky-600
     shadow: "shadow-[0_0_6px_rgba(147,197,253,0.8)]", // sky-300
     dropShadow: "drop-shadow-[0_0_4px_rgba(147,197,253,0.8)]",
+    border: "border-sky-300",
   },
   green: {
     icon: "text-emerald-300",
@@ -31,6 +33,7 @@ const themes = {
     thumbHover: "#059669", // emerald-600
     shadow: "shadow-[0_0_6px_rgba(110,231,183,0.8)]", // emerald-300
     dropShadow: "drop-shadow-[0_0_4px_rgba(110,231,183,0.8)]",
+    border: "border-emerald-300",
   },
   pink: {
     icon: "text-rose-300",
@@ -42,6 +45,7 @@ const themes = {
     thumbHover: "#db2777", // rose-600
     shadow: "shadow-[0_0_6px_rgba(253,164,175,0.8)]", // rose-300
     dropShadow: "drop-shadow-[0_0_4px_rgba(253,164,175,0.8)]",
+    border: "border-rose-300",
   },
   yellow: {
     icon: "text-amber-300",
@@ -53,6 +57,7 @@ const themes = {
     thumbHover: "#d97706", // amber-600
     shadow: "shadow-[0_0_6px_rgba(252,211,77,0.8)]", // amber-300
     dropShadow: "drop-shadow-[0_0_4px_rgba(252,211,77,0.8)]",
+    border: "border-amber-300",
   },
   violet: {
     icon: "text-violet-300",
@@ -64,6 +69,7 @@ const themes = {
     thumbHover: "#7c3aed", // violet-600
     shadow: "shadow-[0_0_6px_rgba(196,181,253,0.8)]", // violet-300
     dropShadow: "drop-shadow-[0_0_4px_rgba(196,181,253,0.8)]",
+    border: "border-violet-300",
   },
 };
 

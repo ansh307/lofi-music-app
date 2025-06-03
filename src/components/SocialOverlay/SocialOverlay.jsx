@@ -15,7 +15,7 @@ const SocialOverlay = () => {
   const themeClass = themes[theme] || themes["indigo"]; // fallback
 
   return (
-    <div className="fixed top-[6rem] right-12 z-50">
+    <div className="fixed top-[6rem] right-12 z-40">
       <button
         onClick={handleRedirect}
         className={` ${themeClass.icon} ${themeClass.hover} text-2xl transition`}
