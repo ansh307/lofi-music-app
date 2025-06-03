@@ -5,8 +5,8 @@ import { useTheme } from "@/context/ThemeContext";
 import themes from "@/lib/themes";
 
 const TypingTitle = ({ speed = 150 }) => {
-  const { currentSongIndex, songs, isPlaying } = useMusicPlayer();
-  const currentSong = songs[currentSongIndex];
+  const { currentSongIndex, songs, isPlaying, combinedSongs } = useMusicPlayer();
+  const currentSong = combinedSongs[currentSongIndex];
   const text = currentSong.title;
 
   const [displayedText, setDisplayedText] = useState("");

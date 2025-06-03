@@ -29,11 +29,12 @@ const NewMusicPlayerComponent = () => {
     handleProgressChange,
     duration,
     setDuration,
+    combinedSongs,
   } = useMusicPlayer();
 
   const { changeGif } = useGif();
 
-  const currentSong = songs[currentSongIndex];
+  const currentSong = combinedSongs[currentSongIndex];
 
   const { theme, changeTheme } = useTheme();
 
@@ -77,7 +78,7 @@ const NewMusicPlayerComponent = () => {
           break;
         case "t":
         case "T":
-          changeTheme() // optional
+          changeTheme(); // optional
           break;
         default:
           break;
@@ -94,7 +95,7 @@ const NewMusicPlayerComponent = () => {
     handlePrev,
     handleVolumeChange,
     toggleMute,
-    changeTheme
+    changeTheme,
   ]);
 
   return (

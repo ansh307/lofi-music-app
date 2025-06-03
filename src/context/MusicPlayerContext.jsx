@@ -9,6 +9,8 @@ import React, {
 } from "react";
 import { songs } from "@/data/SongList";
 import { useGif } from "./GifContext";
+import axios from "axios"; // or fetch
+import { useSession } from "next-auth/react";
 
 const MusicPlayerContext = createContext();
 
@@ -23,7 +25,44 @@ export const MusicPlayerProvider = ({ children }) => {
   const [duration, setDuration] = useState(0); // Add duration state here
 
   const audioRef = useRef(null);
-const { changeGif } = useGif();
+  const { changeGif } = useGif();
+
+  const [userSongs, setUserSongs] = useState([]);
+  const { data: session, status } = useSession();
+
+  const fetchUserSongs = async () => {
+    try {
+      const res = await fetch("/api/songs/mine");
+      if (!res.ok) throw new Error("Failed to fetch user songs");
+      const data = await res.json();
+      setUserSongs(data.songs);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      fetchUserSongs();
+    }
+  }, [status]);
+
+  const reloadUserSongs = () => fetchUserSongs();
+
+  const [playlistMode, setPlaylistMode] = useState("default");
+
+  const combinedSongs = React.useMemo(() => {
+    if (playlistMode === "default") return songs;
+    if (playlistMode === "user") return userSongs;
+    if (playlistMode === "all") return [...songs, ...userSongs];
+    return songs;
+  }, [playlistMode, userSongs]);
+
+  useEffect(() => {
+    if (combinedSongs.length > 0) {
+      setCurrentSongIndex(0); // or getRandomSongIndex(-1) if you prefer random
+    }
+  }, [playlistMode, combinedSongs]);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -49,10 +88,10 @@ const { changeGif } = useGif();
   }, [currentSongIndex]);
 
   const getRandomSongIndex = (excludeIndex) => {
-    let randomIndex = Math.floor(Math.random() * songs.length);
+    let randomIndex = Math.floor(Math.random() * combinedSongs.length);
     // Prevent picking the same song
-    while (randomIndex === excludeIndex && songs.length > 1) {
-      randomIndex = Math.floor(Math.random() * songs.length);
+    while (randomIndex === excludeIndex && combinedSongs.length > 1) {
+      randomIndex = Math.floor(Math.random() * combinedSongs.length);
     }
     return randomIndex;
   };
@@ -130,13 +169,18 @@ const { changeGif } = useGif();
         audioRef,
         handleTimeUpdate,
         handleProgressChange,
+        playlistMode,
+        setPlaylistMode,
+        combinedSongs,
+        userSongs,
+        reloadUserSongs,
       }}
     >
       {children}
       <audio
         // autoPlay
         ref={audioRef}
-        src={songs[currentSongIndex].src}
+        src={combinedSongs[currentSongIndex]?.src || ""}
         onEnded={handleNext}
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={() => setDuration(audioRef.current.duration)} // Set duration locally

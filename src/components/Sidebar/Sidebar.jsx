@@ -5,8 +5,10 @@ import themes from "@/lib/themes";
 import { useSession, signOut, signIn } from "next-auth/react";
 import { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
-import { MdOutlineFileUpload } from "react-icons/md";
+import { MdLockOutline, MdOutlineFileUpload } from "react-icons/md";
 import Loader from "../ui/Loader";
+import { useMusicPlayer } from "@/context/MusicPlayerContext";
+import UploadSongModal from "../UploadSongModal/UploadSongModal";
 
 export default function Sidebar() {
   const { data: session, status } = useSession();
@@ -14,8 +16,21 @@ export default function Sidebar() {
   const { theme } = useTheme();
   const [isLoading, setIsLoading] = useState(false);
 
-  const toggleSidebar = () => setIsOpen(!isOpen);
+  const { playlistMode, setPlaylistMode, reloadUserSongs, userSongs } =
+    useMusicPlayer();
+
+ const toggleSidebar = () => {
+  if (isOpen) {
+    setTimeout(() => {
+      setUploadOpen(false);
+    }, 200);
+  }
+  setIsOpen(!isOpen);
+};
+
   const themeClass = themes[theme] || themes["indigo"];
+
+  const [uploadOpen, setUploadOpen] = useState(false);
 
   const handleSignOut = () => {
     setIsLoading(true);
@@ -25,6 +40,15 @@ export default function Sidebar() {
   const handleSignIn = () => {
     setIsLoading(true);
     signIn({ callbackUrl: "/play" });
+  };
+
+  const handleUploadClick = () => {
+    setUploadOpen(true);
+  };
+
+  const handleUploadSuccess = (newSong) => {
+    // You might want to refetch user songs or update music player context state here
+    if (reloadUserSongs) reloadUserSongs();
   };
 
   return (
@@ -60,7 +84,7 @@ export default function Sidebar() {
 
           {/* Close Icon */}
           <button
-            className={`absolute top-5 right-4 p-2 rounded-md bg-black bg-opacity-30 hover:bg-opacity-50 transition ${themeClass.icon} ${themeClass.hover}`}
+            className={`z-72 absolute top-5 right-4 p-2 rounded-md bg-black bg-opacity-30 hover:bg-opacity-50 transition ${themeClass.icon} ${themeClass.hover}`}
             onClick={toggleSidebar}
             aria-label="Close Sidebar"
           >
@@ -77,28 +101,48 @@ export default function Sidebar() {
               <div className="mt-8">
                 <ul className="mt-2 space-y-2">
                   <li>
-                    <a
-                      href="/play"
-                      className={`block py-3 px-4 rounded-md hover:bg-zinc-950 transition text-white`}
+                    <button
+                      onClick={() => setPlaylistMode("all")}
+                      className={`block py-3 px-4 rounded-md transition w-full text-start ${
+                        playlistMode === "all"
+                          ? "bg-zinc-950 font-bold"
+                          : "hover:bg-zinc-950"
+                      } text-white`}
                     >
-                      All Playlists
-                    </a>
+                      All Songs
+                    </button>
                   </li>
                   <li>
-                    <a
-                      href="/play/curated"
-                      className={`block py-3 px-4 rounded-md hover:bg-zinc-950 transition text-white`}
+                    <button
+                      onClick={() => {
+                        if (userSongs.length > 0) setPlaylistMode("user");
+                      }}
+                      disabled={userSongs.length === 0}
+                      title={`You have ${userSongs.length} songs`}
+                      className={`block py-3 px-4 rounded-md transition w-full text-start ${
+                        playlistMode === "user"
+                          ? "bg-zinc-950 font-bold"
+                          : "hover:bg-zinc-950"
+                      } ${
+                        userSongs.length === 0
+                          ? "opacity-50 cursor-not-allowed"
+                          : ""
+                      } text-white`}
                     >
-                      Curated Playlists
-                    </a>
+                      My Songs
+                    </button>
                   </li>
                   <li>
-                    <a
-                      href="/play/user"
-                      className={`block py-3 px-4 rounded-md hover:bg-zinc-950 transition text-white`}
+                    <button
+                      onClick={() => setPlaylistMode("default")}
+                      className={`block py-3 px-4 rounded-md transition w-full text-start ${
+                        playlistMode === "default"
+                          ? "bg-zinc-950 font-bold"
+                          : "hover:bg-zinc-950"
+                      } text-white`}
                     >
-                      Your Playlists
-                    </a>
+                      Default Songs
+                    </button>
                   </li>
                 </ul>
               </div>
@@ -118,20 +162,47 @@ export default function Sidebar() {
           </div>
         )}
 
+        {status === "loading" && (
+          <div className="flex flex-col justify-center items-center">
+            <Loader size="md" />
+          </div>
+        )}
+
         {/* Bottom Content */}
         <div>
           {/* Upload Songs */}
-          {status === "authenticated" && (
-            <button
-              onClick={() => console.log("Upload Songs Clicked")}
-              className={`w-full mt-6 py-3 px-4 rounded-md hover:bg-zinc-950 transition text-white flex items-center justify-between group`}
-            >
-              Upload Songs
-              <MdOutlineFileUpload
-                className={`h-6 w-6 group-hover:scale-110 transition-transform duration-300`}
-              />
-            </button>
-          )}
+          {status === "authenticated" &&
+            (() => {
+              const isAllowed =
+                session?.user?.email === "anshsoni55333@gmail.com" ||
+                session?.user?.email === "jenneviedeasis@gmail.com";
+
+              return (
+                <button
+                  onClick={() => isAllowed && handleUploadClick()}
+                  disabled={!isAllowed}
+                  className={`w-full mt-6 py-3 px-4 rounded-md transition text-white flex items-center justify-between group ${
+                    isAllowed
+                      ? "hover:bg-zinc-950"
+                      : "opacity-50 cursor-not-allowed"
+                  }`}
+                >
+                  Upload Songs
+                  {isAllowed ? (
+                    <MdOutlineFileUpload className="h-6 w-6 group-hover:scale-110 transition-transform duration-300" />
+                  ) : (
+                    <MdLockOutline className="h-5 w-5" />
+                  )}
+                </button>
+              );
+            })()}
+
+          {/* Upload modal */}
+          <UploadSongModal
+            isOpen={uploadOpen}
+            onClose={() => setUploadOpen(false)}
+            onUploadSuccess={handleUploadSuccess}
+          />
 
           {/* Sign In Button */}
           {status === "unauthenticated" && (

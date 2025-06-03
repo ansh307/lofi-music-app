@@ -4,6 +4,8 @@ import "./globals.css";
 import { MusicPlayerProvider } from "@/context/MusicPlayerContext";
 import { GifProvider } from "@/context/GifContext";
 import { ThemeProvider } from "@/context/ThemeContext";
+import SessionWrapper from "@/components/SessionWrapper/SessionWrapper";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,13 +32,16 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${zenMaru.variable}`}>
-        <ThemeProvider>
-          <GifProvider>
-            <MusicPlayerProvider>
-               {children}
-            </MusicPlayerProvider>
-          </GifProvider>
-        </ThemeProvider>
+        <SessionWrapper>
+          <ThemeProvider>
+            <GifProvider>
+              <MusicPlayerProvider>
+                {children}
+                <Toaster />
+              </MusicPlayerProvider>
+            </GifProvider>
+          </ThemeProvider>
+        </SessionWrapper>
       </body>
     </html>
   );
