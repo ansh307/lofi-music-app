@@ -177,14 +177,15 @@ export const MusicPlayerProvider = ({ children }) => {
       }}
     >
       {children}
-      <audio
-        // autoPlay
-        ref={audioRef}
-        src={combinedSongs[currentSongIndex]?.src || ""}
-        onEnded={handleNext}
-        onTimeUpdate={handleTimeUpdate}
-        onLoadedMetadata={() => setDuration(audioRef.current.duration)} // Set duration locally
-      />
+      {combinedSongs.length > 0 && combinedSongs[currentSongIndex]?.src && (
+        <audio
+          ref={audioRef}
+          src={combinedSongs[currentSongIndex].src}
+          onEnded={handleNext}
+          onTimeUpdate={handleTimeUpdate}
+          onLoadedMetadata={() => setDuration(audioRef.current.duration)}
+        />
+      )}
     </MusicPlayerContext.Provider>
   );
 };

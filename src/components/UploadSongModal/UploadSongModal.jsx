@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import { toast } from "sonner";
 import Loader from "../ui/Loader";
@@ -10,6 +10,23 @@ export default function UploadSongModal({ isOpen, onClose, onUploadSuccess }) {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+    const handleClose = () => {
+    setTitle("");
+    setFile(null);
+    setError("");
+    onClose(); // tell parent to hide modal
+  };
+
+   // 🔁 Reset form when modal is closed
+  useEffect(() => {
+    if (!isOpen) {
+      setTitle("");
+      setFile(null);
+      setError("");
+      setLoading(false);
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -42,14 +59,24 @@ export default function UploadSongModal({ isOpen, onClose, onUploadSuccess }) {
       onUploadSuccess(data.song); // notify parent to reload or update songs
       toast("Song uploaded successfully!", {
         description: "New song has been added to your library.",
-        duration: 2000,
+        className: "text-black",
+        duration: 3000,
         action: {
           label: "Undo",
         },
       });
-      onClose();
+     handleClose(); // <- clears form + closes modal
     } catch (err) {
       setError(err.message);
+      toast.error("Something went wrong!", {
+        description:
+          "Please try again or contact support if the issue persists.",
+        className: "text-red-500",
+        duration: 3000,
+        action: {
+          label: "Undo",
+        },
+      });
     } finally {
       setLoading(false);
     }
@@ -77,13 +104,10 @@ export default function UploadSongModal({ isOpen, onClose, onUploadSuccess }) {
             className="text-gray-300 border border-gray-400 file:px-[5px] file:pr-4  file:text-sm file:text-zinc-500  "
             required
           />
-          {error && (
-            <p className="text-red-500 text-sm">Something went wrong.</p>
-          )}
 
           <button
             type="button"
-            onClick={onClose}
+            onClick={handleClose}
             className="px-4 py-2 bg-gray-700 rounded-md hover:bg-gray-600"
             disabled={loading}
           >

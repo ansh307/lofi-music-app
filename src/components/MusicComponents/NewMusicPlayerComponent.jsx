@@ -43,6 +43,14 @@ const NewMusicPlayerComponent = () => {
   // Keyboard controls
   useEffect(() => {
     const handleKeyDown = (e) => {
+      const activeEl = document.activeElement;
+      const isInput =
+        activeEl.tagName === "INPUT" ||
+        activeEl.tagName === "TEXTAREA" ||
+        activeEl.getAttribute("contenteditable") === "true";
+
+      if (isInput) return; // Do nothing if user is typing
+
       switch (e.key) {
         case "ArrowLeft":
           handlePrev();
@@ -73,12 +81,12 @@ const NewMusicPlayerComponent = () => {
         case "g":
         case "G":
           if (typeof changeGif === "function") {
-            changeGif(); // optional
+            changeGif();
           }
           break;
         case "t":
         case "T":
-          changeTheme(); // optional
+          changeTheme();
           break;
         default:
           break;
