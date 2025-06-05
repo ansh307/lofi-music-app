@@ -11,39 +11,40 @@ As contributors and maintainers of this project, we pledge to create and maintai
 To ensure a positive experience for everyone, we have established these standards:
 
 - **Respect**: Treat all contributors with respect and kindness, regardless of their background, identity, or experience.
-
 - **Inclusivity**: Encourage diverse perspectives and ideas. We welcome and support contributions from people of all backgrounds and experiences.
-
-- **Open-Mindedness**: Be open to constructive feedback and differing opinions. Productive discussions and innovation arise from diverse viewpoints.
-
-- **Collaboration**: Strive for a spirit of collaboration and teamwork. Working together enables us to achieve greater goals.
-
-- **Kindness**: Show empathy and kindness towards others. A warm and welcoming community is built on understanding and support.
+- **Open-Mindedness**: Be open to constructive feedback and differing opinions.
+- **Collaboration**: Work together to achieve shared goals.
+- **Kindness**: Show empathy and kindness in all interactions.
 
 ## Unacceptable Behavior 🚫
 
 We do not tolerate any form of harassment, discrimination, or offensive behavior. Unacceptable behavior includes, but is not limited to:
 
 - Offensive comments related to gender, gender identity and expression, sexual orientation, disability, mental illness, race, ethnicity, religion, or socioeconomic status.
-
 - Deliberate intimidation, harassment, stalking, or unwelcome contact.
-
 - Publishing others' private information, such as physical or electronic addresses, without explicit permission.
+- Inappropriate language, imagery, or behavior that creates an uncomfortable environment.
+- Trolling, flaming, or derogatory comments.
 
-- Inappropriate use of language, imagery, or behavior that creates an uncomfortable environment.
+## Reporting Violations 🚨
 
-- Any form of trolling, flaming, or derogatory comments.
+If you witness or experience unacceptable behavior while interacting with Lofida, please report it immediately:
 
-## Reporting Violations 🚀
+📧 [anshsoni55333@gmail.com](mailto:anshsoni55333@gmail.com)
 
-If you witness or experience unacceptable behavior while interacting with Lofida, please report it immediately to [anshsoni55333@gmail.com](mailto:anshsoni55333@gmail.com). All reports will be reviewed and investigated promptly, and appropriate actions will be taken.
+All reports will be reviewed and investigated promptly, and appropriate actions will be taken.
+
 
 ## Enforcement 🛡️
 
-If any participant engages in behavior that violates this Code of Conduct, the project maintainers may take any action they deem appropriate. Possible consequences include warnings, temporary or permanent bans, or reporting to relevant authorities in severe cases.
+Project maintainers have the right and responsibility to enforce this Code of Conduct. Actions may include:
+
+- Warnings
+- Temporary or permanent bans from the community
+- Reporting to appropriate legal authorities if necessary
 
 ## Our Pledge 🤗
 
-By participating in Lofida, you agree to uphold this Code of Conduct. We are committed to fostering a safe, inclusive, and respectful community. Together, we can build amazing contributions and make a positive impact.
+By participating in Lofida, you agree to uphold this Code of Conduct. We are committed to fostering a safe, inclusive, and respectful community.
 
 Thank you for being a part of this journey! 🙏
