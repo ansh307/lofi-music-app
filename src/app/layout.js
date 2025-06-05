@@ -6,6 +6,7 @@ import { GifProvider } from "@/context/GifContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 import SessionWrapper from "@/components/SessionWrapper/SessionWrapper";
 import { Toaster } from "@/components/ui/sonner";
+import { createMetadata } from "@/components/Seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,11 +24,7 @@ const zenMaru = Zen_Maru_Gothic({
   variable: "--font-zen",
 });
 
-export const metadata = {
-  title: "LofiDa",
-  description: "Relax and focus with lofi vibes",
-};
-
+export const metadata = createMetadata({});
 export default function RootLayout({ children }) {
   return (
     <html lang="en">

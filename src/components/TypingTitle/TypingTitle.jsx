@@ -6,17 +6,21 @@ import themes from "@/lib/themes";
 
 const TypingTitle = ({ speed = 150 }) => {
   const { currentSongIndex, songs, isPlaying, combinedSongs } = useMusicPlayer();
-  const currentSong = combinedSongs[currentSongIndex];
+  const currentSong = combinedSongs?.[currentSongIndex];
+
+  const { theme } = useTheme();
+  const themeClass = themes[theme] || themes["indigo"]; // fallback
+
+  // If song hasn't loaded yet
+  if (!currentSong || !currentSong.title) {
+    return <span className={`${themeClass.icon} animate-pulse`}>Loading...</span>;
+  }
+
   const text = currentSong.title;
 
   const [displayedText, setDisplayedText] = useState("");
   const [index, setIndex] = useState(0);
   const [showCursor, setShowCursor] = useState(true);
-
-  
-  const { theme } = useTheme();
-
-  const themeClass = themes[theme] || themes["indigo"]; // fallback
 
   // Reset typing animation on song change
   useEffect(() => {
@@ -46,7 +50,7 @@ const TypingTitle = ({ speed = 150 }) => {
   return isPlaying ? (
     <span className={`${themeClass.dropShadow} ${themeClass.icon}`}>
       {displayedText}
-      {index === currentSong.title.length && (
+      {index === text.length && (
         <span className={`${themeClass.text}`}>...</span>
       )}
       <span
@@ -54,9 +58,11 @@ const TypingTitle = ({ speed = 150 }) => {
           showCursor ? "opacity-100" : "opacity-0"
         } transition-opacity duration-200  ${themeClass.shadow}`}
       />
-    </span> 
+    </span>
   ) : (
-    <span className={`${themeClass.icon} ${themeClass.dropShadow} flex items-center`}>
+    <span
+      className={`${themeClass.icon} ${themeClass.dropShadow} flex items-center`}
+    >
       Paused... Click space to play
       <span
         className={`${themeClass.bg} w-[8px] h-5 inline-block ml-1  ${
@@ -66,5 +72,6 @@ const TypingTitle = ({ speed = 150 }) => {
     </span>
   );
 };
+
 
 export default TypingTitle;

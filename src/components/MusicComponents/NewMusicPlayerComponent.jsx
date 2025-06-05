@@ -194,13 +194,15 @@ const NewMusicPlayerComponent = () => {
 
         {/* Right: Download Button */}
         <div className="flex justify-end col-span-4 ">
-          <Link
-            href={currentSong.src}
-            target="_blank"
-            className={`p-2 ${themeClass.text} ${themeClass.hover} hover:scale-110 transition-transform duration-300`}
-          >
-            <MdOutlineFileDownload className="h-6 w-6" />
-          </Link>
+          {currentSong?.src && (
+            <Link
+              href={currentSong.src}
+              target="_blank"
+              className={`p-2 ${themeClass.text} ${themeClass.hover} hover:scale-110 transition-transform duration-300`}
+            >
+              <MdOutlineFileDownload className="h-6 w-6" />
+            </Link>
+          )}
         </div>
       </div>
     </div>

@@ -1,3 +1,5 @@
+"use client";
+
 import { useTheme } from "@/context/ThemeContext";
 import themes from "@/lib/themes";
 import { FiShare2 } from "react-icons/fi";

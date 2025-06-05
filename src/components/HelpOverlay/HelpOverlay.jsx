@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { FiHelpCircle } from "react-icons/fi";
 import {
