@@ -16,7 +16,6 @@ import { MdSync } from "react-icons/md";
 import SettingsOverlay from "@/components/SettingsOverlay/SettingsOverlay";
 import { useTheme } from "@/context/ThemeContext";
 import themes from "@/lib/themes";
-import Seo from "@/components/Seo";
 import { useGif } from "@/context/GifContext";
 import Sidebar from "@/components/Sidebar/Sidebar";
 
@@ -33,7 +32,6 @@ export default function WorkspacePage() {
 
   const themeClass = themes[theme] || themes["indigo"]; // fallback
 
-  <Seo title="Lofida Play" />;
 
   useEffect(() => {
     if (session) {

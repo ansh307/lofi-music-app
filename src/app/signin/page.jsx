@@ -1,6 +1,5 @@
 "use client";
 
-import Seo from "@/components/Seo";
 import { signIn } from "next-auth/react";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
@@ -19,10 +18,6 @@ export default function SignInPage() {
 
   return (
     <>
-      <Seo
-        title="Sign In | Lofida"
-        description="Sign in to access your Lofida workspace"
-      />
       <div className="min-h-screen bg-[#0e0e11] flex flex-col items-center justify-center text-white px-4">
         <h1 className="text-3xl font-bold mb-6 text-indigo-100">
           Welcome to Lofida
