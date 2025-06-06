@@ -3,7 +3,7 @@
 import { useTheme } from "@/context/ThemeContext";
 import themes from "@/lib/themes";
 import { useSession, signOut, signIn } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 import { MdLockOutline, MdOutlineFileUpload } from "react-icons/md";
 import Loader from "../ui/Loader";
@@ -19,14 +19,26 @@ export default function Sidebar() {
   const { playlistMode, setPlaylistMode, reloadUserSongs, userSongs } =
     useMusicPlayer();
 
- const toggleSidebar = () => {
-  if (isOpen) {
-    setTimeout(() => {
-      setUploadOpen(false);
-    }, 200);
-  }
-  setIsOpen(!isOpen);
-};
+  const [isSubscribed, setIsSubscribed] = useState(false);
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      fetch("/api/subscription/status")
+        .then((res) => res.json())
+        .then((data) => {
+          setIsSubscribed(data.subscribed);
+        });
+    }
+  }, [status]);
+
+  const toggleSidebar = () => {
+    if (isOpen) {
+      setTimeout(() => {
+        setUploadOpen(false);
+      }, 200);
+    }
+    setIsOpen(!isOpen);
+  };
 
   const themeClass = themes[theme] || themes["indigo"];
 
@@ -50,6 +62,12 @@ export default function Sidebar() {
     // You might want to refetch user songs or update music player context state here
     if (reloadUserSongs) reloadUserSongs();
   };
+
+  const isFreeUploadUser =
+    session?.user?.email === "anshsoni55333@gmail.com" ||
+    session?.user?.email === "jenneviedeasis@gmail.com";
+
+  const canUpload = isFreeUploadUser || isSubscribed;
 
   return (
     <>
@@ -171,31 +189,30 @@ export default function Sidebar() {
         {/* Bottom Content */}
         <div>
           {/* Upload Songs */}
-          {status === "authenticated" &&
-            (() => {
-              const isAllowed =
-                session?.user?.email === "anshsoni55333@gmail.com" ||
-                session?.user?.email === "jenneviedeasis@gmail.com";
-
-              return (
-                <button
-                  onClick={() => isAllowed && handleUploadClick()}
-                  disabled={!isAllowed}
-                  className={`w-full mt-6 py-3 px-4 rounded-md transition text-white flex items-center justify-between group ${
-                    isAllowed
-                      ? "hover:bg-zinc-950"
-                      : "opacity-50 cursor-not-allowed"
-                  }`}
-                >
-                  Upload Songs
-                  {isAllowed ? (
-                    <MdOutlineFileUpload className="h-6 w-6 group-hover:scale-110 transition-transform duration-300" />
-                  ) : (
-                    <MdLockOutline className="h-5 w-5" />
-                  )}
-                </button>
-              );
-            })()}
+          {status === "authenticated" && (
+            <button
+              onClick={() => {
+                if (canUpload) {
+                  handleUploadClick();
+                } else {
+                  window.location.href = "/subscribe";
+                }
+              }}
+              disabled={!session?.user}
+              className={`w-full mt-6 py-3 px-4 rounded-md transition text-white flex items-center justify-between group ${
+                canUpload
+                  ? "hover:bg-zinc-950"
+                  : "opacity-50 cursor-not-allowed"
+              }`}
+            >
+              Upload Songs
+              {canUpload ? (
+                <MdOutlineFileUpload className="h-6 w-6 group-hover:scale-110 transition-transform duration-300" />
+              ) : (
+                <MdLockOutline className="h-5 w-5" />
+              )}
+            </button>
+          )}
 
           {/* Upload modal */}
           <UploadSongModal

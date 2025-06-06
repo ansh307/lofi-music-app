@@ -1,12 +1,12 @@
 "use client"
 
-// pages/500.js
+import { useTheme } from "./../context/ThemeContext";
+import themes from "./../lib/themes";
 import Link from "next/link";
-import { useTheme } from "@/context/ThemeContext";
-import { FiAlertCircle } from "react-icons/fi";
-import themes from "@/lib/themes";
 
-export default function Custom500() {
+import { FiAlertCircle } from "react-icons/fi";
+
+export default function ErrorPage() {
 
   const { theme } = useTheme();
 

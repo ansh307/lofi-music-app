@@ -1,12 +1,11 @@
 "use client";
 
-// pages/404.js
 import Link from "next/link";
 import { useTheme } from "@/context/ThemeContext";
 import { FiArrowLeftCircle } from "react-icons/fi";
 import themes from "@/lib/themes";
 
-export default function Custom404() {
+export default function NotFoundPage() {
 
   const { theme } = useTheme();
 

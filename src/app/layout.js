@@ -1,22 +1,11 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import { Zen_Maru_Gothic } from "next/font/google";
 import "./globals.css";
-import { MusicPlayerProvider } from "@/context/MusicPlayerContext";
-import { GifProvider } from "@/context/GifContext";
-import { ThemeProvider } from "@/context/ThemeContext";
-import SessionWrapper from "@/components/SessionWrapper/SessionWrapper";
-import { Toaster } from "@/components/ui/sonner";
 import { createMetadata } from "@/components/Seo";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { ThemeProvider } from "@/context/ThemeContext";
+import { GifProvider } from "@/context/GifContext";
+import { MusicPlayerProvider } from "@/context/MusicPlayerContext";
+import { Toaster } from "@/components/ui/sonner";
+import SessionWrapper from "@/components/SessionWrapper/SessionWrapper";
 
 const zenMaru = Zen_Maru_Gothic({
   subsets: ["latin"],
