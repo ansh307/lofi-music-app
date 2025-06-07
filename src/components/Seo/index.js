@@ -1,9 +1,9 @@
 export const createMetadata = ({
   title = "Lofida",
   description = "Lofida – your cozy corner of lo-fi vibes. Relax, listen, and vibe with the best aesthetic sounds.",
-  OGImage = "https://lofida.app/LOFIDA.png",
+  OGImage = "https://lofida.netlify.app/LOFIDA.png",
   OGType = "website",
-  canonicalUrl = "https://lofida.app/",
+  canonicalUrl = "https://lofida.netlify.app/",
   publishedDate = new Date().toISOString(),
 }) => {
   return {

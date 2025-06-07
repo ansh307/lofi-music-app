@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://lofida.app
+Host: https://lofida.netlify.app
 
 # Sitemaps
-Sitemap: https://lofida.app/sitemap.xml
+Sitemap: https://lofida.netlify.app/sitemap.xml
